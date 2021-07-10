@@ -1,2 +1,0 @@
-# airport-app
-Airport application
