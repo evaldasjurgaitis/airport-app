@@ -1,0 +1,13 @@
+@import '~antd/dist/antd.css';
+@import 'assets/styles/_typography.scss';
+
+body {
+    margin: 0;
+    font-family: $primaryFontFamily;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: $primaryFontFamily;
+}
