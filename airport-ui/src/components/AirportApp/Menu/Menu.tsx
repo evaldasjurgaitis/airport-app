@@ -15,13 +15,13 @@ const Menu = ({ selectedMenuItem, setSelectedMenuItem }: Props) => {
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <a
                 href=""
-                className={selectedMenuItem === MenuItemType.FLIGHT_SEARCH ? 'menu__active' : ''}
+                className={selectedMenuItem === MenuItemType.AIRPORT_SEARCH ? 'menu__active' : ''}
                 onClick={(e) => {
                     e.preventDefault();
-                    setSelectedMenuItem(MenuItemType.FLIGHT_SEARCH);
+                    setSelectedMenuItem(MenuItemType.AIRPORT_SEARCH);
                 }}
             >
-                Flight Search
+                Airport Search
             </a>
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <a

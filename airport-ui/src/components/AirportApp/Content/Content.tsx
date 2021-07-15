@@ -4,6 +4,7 @@ import AdminPanelContent from './AdminPanelContent/AdminPanelContent';
 import { MenuItemType } from '../typing';
 
 import './Content.scss';
+import AirportSearchContent from './AirportSearchContent/AirportSearchContent';
 
 interface Props {
     selectedMenuItem: MenuItemType;
@@ -11,8 +12,12 @@ interface Props {
 
 const Content = ({ selectedMenuItem }: Props) => {
     switch (selectedMenuItem) {
-        case MenuItemType.FLIGHT_SEARCH:
-            return <div className="content">Flight Search</div>;
+        case MenuItemType.AIRPORT_SEARCH:
+            return (
+                <div className="content">
+                    <AirportSearchContent />
+                </div>
+            );
         case MenuItemType.ADMIN_PANEL:
             return (
                 <div className="content">

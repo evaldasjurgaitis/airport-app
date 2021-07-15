@@ -1,5 +1,5 @@
 export enum MenuItemType {
-    FLIGHT_SEARCH,
+    AIRPORT_SEARCH,
     ADMIN_PANEL,
 }
 
