@@ -101,7 +101,7 @@ const CountryDataImport = () => {
     };
 
     return (
-        <Row align="middle" className="admin-panel--row">
+        <Row align="middle" className="admin-panel-content--row">
             <Col span={3} xs={10} sm={3} md={5} xl={3}>
                 <div className="align-left">
                     <Upload accept=".csv" customRequest={uploadCountryData} showUploadList={false} maxCount={1}>
@@ -116,10 +116,10 @@ const CountryDataImport = () => {
                     {showCountryDataLoader && <Loader />}
                     {showCountryDataImportBtn && <Button onClick={executeImportData}>Import data</Button>}
                     {showCountryDataImportStatusSuccess && (
-                        <span className="admin-panel--import-data__success">Success</span>
+                        <span className="admin-panel-content--import-data__success">Success</span>
                     )}
                     {showCountryDataImportStatusFailure && (
-                        <span className="admin-panel--import-data__failure">Failure</span>
+                        <span className="admin-panel-content--import-data__failure">Failure</span>
                     )}
                 </div>
             </Col>

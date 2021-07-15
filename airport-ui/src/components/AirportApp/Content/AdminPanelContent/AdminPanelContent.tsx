@@ -8,7 +8,7 @@ import './AdminPanelContent.scss';
 
 const AdminPanelContent = () => {
     return (
-        <div>
+        <div className="admin-panel-content">
             <h1>Admin panel</h1>
             <CountryDataImport />
             <RegionDataImport />

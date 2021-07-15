@@ -30,9 +30,9 @@ const AirportSearchForm = () => {
         setSelectedCountry(value);
         axios.get(`http://localhost:8081/api/regions`, { params }).then((response) => {
             setRegions(
-                response.data.map((country: { code: string; name: string }) => ({
-                    value: country.code,
-                    label: country.name,
+                response.data.map((region: { code: string; name: string }) => ({
+                    value: region.code,
+                    label: region.name,
                 }))
             );
         });
