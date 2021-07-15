@@ -1,5 +1,6 @@
 import React from 'react';
 
+import AdminPanelContent from './AdminPanelContent/AdminPanelContent';
 import { MenuItemType } from '../typing';
 
 import './Content.scss';
@@ -13,7 +14,11 @@ const Content = ({ selectedMenuItem }: Props) => {
         case MenuItemType.FLIGHT_SEARCH:
             return <div className="content">Flight Search</div>;
         case MenuItemType.ADMIN_PANEL:
-            return <div className="content">Admin Panel</div>;
+            return (
+                <div className="content">
+                    <AdminPanelContent />
+                </div>
+            );
         default:
             return <div className="content">No content found</div>;
     }

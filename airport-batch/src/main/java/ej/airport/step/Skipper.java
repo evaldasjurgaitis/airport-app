@@ -11,7 +11,7 @@ public class Skipper implements SkipPolicy {
 
     @Override
     public boolean shouldSkip(Throwable exception, int skipCount) throws SkipLimitExceededException {
-        if (skipCount >= 2000) {
+        if (skipCount >= 100) {
             return false;
         }
         log.error("{}", exception.getMessage());

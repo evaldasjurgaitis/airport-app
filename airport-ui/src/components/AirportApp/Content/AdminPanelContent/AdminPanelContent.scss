@@ -1,0 +1,26 @@
+.admin-panel {
+    &--row {
+        margin-bottom: 15px;
+    }
+    &--import-data {
+        &__success {
+            font-weight: bold;
+            color: green;
+        }
+        &__failure {
+            font-weight: bold;
+            color: red;
+        }
+    }
+}
+
+.align-left {
+    text-align: left;
+}
+
+.align-right {
+    text-align: right;
+}
+.align-center {
+    text-align: center;
+}
