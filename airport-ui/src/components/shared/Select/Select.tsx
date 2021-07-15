@@ -10,21 +10,24 @@ export interface Option {
 
 interface Props {
     options: Option[];
+    value: string | undefined;
     showSearch?: boolean;
     placeholder?: string;
     onChange: (value: string) => void;
     onFocus?: () => void;
     onBlur?: () => void;
     onSearch?: () => void;
+    disabled?: boolean;
 }
 
-const Select = ({ options, showSearch, placeholder, onChange, onFocus, onBlur, onSearch }: Props) => {
+const Select = ({ options, value, showSearch, placeholder, onChange, onFocus, onBlur, onSearch, disabled }: Props) => {
     const { Option } = SelectBase;
 
     return (
         <SelectBase
             showSearch={showSearch}
             style={{ width: 220 }}
+            value={value}
             placeholder={placeholder}
             optionFilterProp="label"
             onChange={onChange}
@@ -37,6 +40,7 @@ const Select = ({ options, showSearch, placeholder, onChange, onFocus, onBlur, o
                 }
                 return false;
             }}
+            disabled={disabled}
         >
             {options.map((option) => (
                 <Option key={option.value} value={option.value}>

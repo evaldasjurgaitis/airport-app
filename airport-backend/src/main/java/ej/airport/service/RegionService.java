@@ -15,8 +15,8 @@ public class RegionService {
         this.regionRepository = regionRepository;
     }
 
-    public List<Region> getAll() {
-        return regionRepository.findAll();
+    public List<Region> getRegionsByCountry(String isoCountry) {
+        return regionRepository.findByIsoCountry(isoCountry);
     }
 
 }
