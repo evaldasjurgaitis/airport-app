@@ -4,6 +4,8 @@ import queryString from 'query-string';
 
 import Table from '../../../../shared/Table/Table';
 
+import { Price } from '../../../typing';
+
 import './AirportTable.scss';
 
 interface Props {
@@ -43,9 +45,10 @@ const AirportTable = ({ selectedCountry, selectedRegion }: Props) => {
                     total: response.data.totalElements,
                 });
                 setAirports(
-                    response.data.content.map((airport: { name: string; municipality: string }) => ({
+                    response.data.content.map((airport: { name: string; municipality: string; price: Price }) => ({
                         name: airport.name,
                         municipality: airport.municipality,
+                        price: airport.price,
                     }))
                 );
             });
@@ -63,6 +66,12 @@ const AirportTable = ({ selectedCountry, selectedRegion }: Props) => {
             dataIndex: 'municipality',
             key: 'municipality',
         },
+        {
+            title: 'Price',
+            dataIndex: 'price',
+            key: 'price',
+            render: (price: Price) => `${price.value} ${price.currency}`,
+        },
     ];
 
     const handleTableChange = (pagination: any) => {
@@ -75,9 +84,10 @@ const AirportTable = ({ selectedCountry, selectedRegion }: Props) => {
                 total: response.data.totalElements,
             });
             setAirports(
-                response.data.content.map((airport: { name: string; municipality: string }) => ({
+                response.data.content.map((airport: { name: string; municipality: string; price: Price }) => ({
                     name: airport.name,
                     municipality: airport.municipality,
+                    price: airport.price,
                 }))
             );
         });

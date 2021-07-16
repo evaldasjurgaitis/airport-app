@@ -1,5 +1,6 @@
 package ej.airport.controller;
 
+import ej.airport.dto.AirportDto;
 import ej.airport.entity.Airport;
 import ej.airport.service.AirportService;
 import org.springframework.data.domain.Page;
@@ -10,8 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/airports")
@@ -29,7 +28,7 @@ public class AirportController {
     }
 
     @GetMapping
-    public Page<Airport> getAirports(
+    public Page<AirportDto> getAirports(
             @RequestParam String isoCountry,
             @RequestParam(required = false) String isoRegion,
             @RequestParam(defaultValue = "1") int page,

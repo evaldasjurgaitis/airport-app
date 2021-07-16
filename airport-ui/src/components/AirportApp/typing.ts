@@ -3,6 +3,11 @@ export enum MenuItemType {
     ADMIN_PANEL,
 }
 
+export type Price = {
+    value: string;
+    currency: string;
+};
+
 export enum JobStatus {
     STARTING = 'STARTING',
     STARTED = 'STARTED',

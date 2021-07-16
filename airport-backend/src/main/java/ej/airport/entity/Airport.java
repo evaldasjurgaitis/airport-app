@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "airports")
@@ -73,5 +75,25 @@ public class Airport {
 
     @Column(name = "turkish_airlines", nullable = false)
     private boolean turkishAirLines;
+
+    public List<String> getAirportProviders() {
+        List<String> airportProviders = new ArrayList<>();
+        if (wizzAir) {
+            airportProviders.add(ProviderType.WIZZAIR.toString().toLowerCase());
+        }
+        if (ryanAir) {
+            airportProviders.add(ProviderType.RYANAIR.toString().toLowerCase());
+        }
+        if (airBaltic) {
+            airportProviders.add(ProviderType.AIRBALTIC.toString().toLowerCase());
+        }
+        if (lufthansa) {
+            airportProviders.add(ProviderType.LUFTHANSA.toString().toLowerCase());
+        }
+        if (turkishAirLines) {
+            airportProviders.add(ProviderType.TURKISHAIRLINES.toString().toLowerCase());
+        }
+        return airportProviders;
+    }
 
 }
