@@ -1,17 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import axios from 'axios';
-
-import { Button } from 'antd';
+import queryString from 'query-string';
 
 import Row from '../../../../shared/Row/Row';
 import Col from '../../../../shared/Col/Col';
 import Select, { Option } from '../../../../shared/Select/Select';
 
-const AirportSearchForm = () => {
+interface Props {
+    selectedCountry: string | undefined;
+    setSelectedCountry: Dispatch<SetStateAction<string | undefined>>;
+    selectedRegion: string | undefined;
+    setSelectedRegion: Dispatch<SetStateAction<string | undefined>>;
+}
+
+const AirportSearchForm = ({ selectedCountry, setSelectedCountry, selectedRegion, setSelectedRegion }: Props) => {
     const [countries, setCountries] = useState<Option[]>([]);
     const [regions, setRegions] = useState<Option[]>([]);
-    const [selectedCountry, setSelectedCountry] = useState<string | undefined>(undefined);
-    const [selectedRegion, setSelectedRegion] = useState<string | undefined>(undefined);
+
+    function getUrl(selectedCountry: string) {
+        return queryString.stringifyUrl({
+            url: 'http://localhost:8081/api/regions',
+            query: {
+                isoCountry: selectedCountry,
+            },
+        });
+    }
 
     useEffect(() => {
         axios.get(`http://localhost:8081/api/countries`).then((response) => {
@@ -25,10 +38,9 @@ const AirportSearchForm = () => {
     }, [setCountries]);
 
     const onCountryChange = (value: string) => {
-        const params = new URLSearchParams([['isoCountry', value]]);
         setSelectedRegion(undefined);
         setSelectedCountry(value);
-        axios.get(`http://localhost:8081/api/regions`, { params }).then((response) => {
+        axios.get(getUrl(value)).then((response) => {
             setRegions(
                 response.data.map((region: { code: string; name: string }) => ({
                     value: region.code,
@@ -61,10 +73,6 @@ const AirportSearchForm = () => {
                         }}
                         placeholder="Select region"
                     />
-                </Col>
-
-                <Col span={6} xs={24} sm={8} md={8} xl={5}>
-                    <Button disabled={!selectedCountry}>Search</Button>
                 </Col>
             </Row>
         </div>

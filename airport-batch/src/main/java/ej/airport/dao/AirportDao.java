@@ -29,7 +29,7 @@ public class AirportDao extends JdbcDaoSupport {
 
     public void insert(List<Airport> airports) {
 
-        String sql = "INSERT INTO airports " + "(id, type, name, latitude, longitude, altitude, continent, iso_country, iso_region, manuciplaity, sheduled_service, gps_code, iata_code, local_code, wizz_air, ryan_air, air_baltic, lufthansa, turkish_airlines) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+        String sql = "INSERT INTO airports " + "(id, type, name, latitude, longitude, altitude, continent, iso_country, iso_region, municipality, sheduled_service, gps_code, iata_code, local_code, wizz_air, ryan_air, air_baltic, lufthansa, turkish_airlines) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
         getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
             public void setValues(PreparedStatement ps, int i) throws SQLException {
                 Airport airport = airports.get(i);
