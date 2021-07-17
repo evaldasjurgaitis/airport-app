@@ -20,7 +20,10 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-batch'
+	implementation 'org.springframework.batch:spring-batch-integration'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.0.3'
+
 
 	compileOnly 'org.projectlombok:lombok'
 	compileOnly 'mysql:mysql-connector-java:8.0.22'
