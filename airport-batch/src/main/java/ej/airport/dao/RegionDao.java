@@ -27,7 +27,7 @@ public class RegionDao extends JdbcDaoSupport {
     }
 
     public void insert(List<Region> regions) {
-        String sql = "INSERT INTO regions " + "(id, code, name, continent, iso_country) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO region " + "(id, code, name, continent, iso_country) VALUES (?, ?, ?, ?, ?)";
         getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
             public void setValues(PreparedStatement ps, int i) throws SQLException {
                 Region region = regions.get(i);

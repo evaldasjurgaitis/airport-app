@@ -27,7 +27,7 @@ public class CountryDao extends JdbcDaoSupport {
     }
 
     public void insert(List<Country> countries) {
-        String sql = "INSERT INTO countries " + "(code, name, continent) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO country " + "(code, name, continent) VALUES (?, ?, ?)";
         getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
             public void setValues(PreparedStatement ps, int i) throws SQLException {
                 Country country = countries.get(i);
