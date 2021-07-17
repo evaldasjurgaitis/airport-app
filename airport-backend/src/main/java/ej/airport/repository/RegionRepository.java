@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface RegionRepository extends JpaRepository<Region, Long> {
 
-    List<Region> findByIsoCountry(String isoCountry);
+    List<Region> findByIsoCountryOrderByName(String isoCountry);
 
 }

@@ -1,6 +1,6 @@
 package ej.airport.controller;
 
-import ej.airport.dto.AirportDto;
+import ej.airport.dto.AirportDetail;
 import ej.airport.entity.Airport;
 import ej.airport.service.AirportService;
 import org.springframework.data.domain.Page;
@@ -28,7 +28,7 @@ public class AirportController {
     }
 
     @GetMapping
-    public Page<AirportDto> getAirports(
+    public Page<AirportDetail> getAirports(
             @RequestParam String isoCountry,
             @RequestParam(required = false) String isoRegion,
             @RequestParam(defaultValue = "1") int page,

@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Price {
+public class ProviderDetail {
 
-    private String value;
+    private String name;
     private String currency;
+    private Integer price;
 
 }

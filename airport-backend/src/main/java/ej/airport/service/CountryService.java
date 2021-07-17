@@ -16,7 +16,7 @@ public class CountryService {
     }
 
     public List<Country> getAll() {
-        return countryRepository.findAll();
+        return countryRepository.findAllByOrderByName();
     }
 
 }

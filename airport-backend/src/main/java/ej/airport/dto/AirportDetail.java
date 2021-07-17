@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AirportDto {
+public class AirportDetail {
 
     private String name;
     private String municipality;
-    private Price price;
+    private ProviderDetail providerDetail;
 
 }

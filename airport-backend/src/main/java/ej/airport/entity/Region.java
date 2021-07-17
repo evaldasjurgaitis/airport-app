@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -18,20 +17,19 @@ import javax.persistence.Table;
 public class Region {
 
     @Id
-    @GeneratedValue
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "code", nullable = false)
+    @Column(name = "code")
     private String code;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "continent", nullable = false)
+    @Column(name = "continent")
     private String continent;
 
-    @Column(name = "iso_country", nullable = false)
+    @Column(name = "iso_country")
     private String isoCountry;
 
 }

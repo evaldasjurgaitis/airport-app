@@ -4,7 +4,7 @@ import queryString from 'query-string';
 
 import Table from '../../../../shared/Table/Table';
 
-import { Price } from '../../../typing';
+import { ProviderDetail } from '../../../typing';
 
 import './AirportTable.scss';
 
@@ -45,11 +45,13 @@ const AirportTable = ({ selectedCountry, selectedRegion }: Props) => {
                     total: response.data.totalElements,
                 });
                 setAirports(
-                    response.data.content.map((airport: { name: string; municipality: string; price: Price }) => ({
-                        name: airport.name,
-                        municipality: airport.municipality,
-                        price: airport.price,
-                    }))
+                    response.data.content.map(
+                        (airport: { name: string; municipality: string; providerDetail: ProviderDetail }) => ({
+                            name: airport.name,
+                            municipality: airport.municipality,
+                            providerDetail: airport.providerDetail,
+                        })
+                    )
                 );
             });
         }
@@ -68,9 +70,9 @@ const AirportTable = ({ selectedCountry, selectedRegion }: Props) => {
         },
         {
             title: 'Price',
-            dataIndex: 'price',
-            key: 'price',
-            render: (price: Price) => `${price.value} ${price.currency}`,
+            dataIndex: 'providerDetail',
+            key: 'providerDetail',
+            render: (providerDetail: ProviderDetail) => `${providerDetail ? providerDetail.price : 'N/A'}`,
         },
     ];
 
@@ -84,11 +86,13 @@ const AirportTable = ({ selectedCountry, selectedRegion }: Props) => {
                 total: response.data.totalElements,
             });
             setAirports(
-                response.data.content.map((airport: { name: string; municipality: string; price: Price }) => ({
-                    name: airport.name,
-                    municipality: airport.municipality,
-                    price: airport.price,
-                }))
+                response.data.content.map(
+                    (airport: { name: string; municipality: string; providerDetail: ProviderDetail }) => ({
+                        name: airport.name,
+                        municipality: airport.municipality,
+                        providerDetail: airport.providerDetail,
+                    })
+                )
             );
         });
     };

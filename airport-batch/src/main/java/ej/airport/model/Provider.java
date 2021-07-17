@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Provider {
 
-    Long airportId;
     String name;
     String currency;
-    String value;
+    Integer price;
+    Long airportId;
 
 }

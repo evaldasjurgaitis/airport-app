@@ -21,4 +21,9 @@ public class ExceptionController {
         return new ResponseEntity<>(new ExceptionResponse(ex.getMessage(), request.getDescription(false)), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(NoEntryFoundException.class)
+    public ResponseEntity<ExceptionResponse> invalidEntry(NoEntryFoundException ex, WebRequest request) {
+        return new ResponseEntity<>(new ExceptionResponse(ex.getMessage(), request.getDescription(false)), HttpStatus.NOT_FOUND);
+    }
+
 }

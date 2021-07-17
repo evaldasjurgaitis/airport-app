@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Price {
 
-    private String value;
+    private Integer value;
     private String currency;
 
 }

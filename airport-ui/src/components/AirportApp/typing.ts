@@ -3,8 +3,9 @@ export enum MenuItemType {
     ADMIN_PANEL,
 }
 
-export type Price = {
-    value: string;
+export type ProviderDetail = {
+    name: string;
+    price: string;
     currency: string;
 };
 

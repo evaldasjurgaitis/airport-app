@@ -17,7 +17,7 @@ public class Processor implements ItemProcessor<Airport, ModifyAirport> {
     }
 
     public ModifyAirport process(Airport airport) {
-        List<Provider> providers = priceService.getProviderWitPrice(airport.getAvailableProviders(), airport.getId());
+        List<Provider> providers = priceService.getProvidersWitPrice(airport.getAvailableProviders(), airport.getId());
         return mapToModifyAirport(airport, providers);
     }
 

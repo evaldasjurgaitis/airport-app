@@ -60,14 +60,14 @@ public class AirportDao extends JdbcDaoSupport {
 
         for (ModifyAirport modifyAirport :
                 airports) {
-            String providerSql = "INSERT INTO provider (name, currency, value, airport_id) values(?,?,?,?);";
+            String providerSql = "INSERT INTO provider (name, currency, price, airport_id) values(?,?,?,?);";
             getJdbcTemplate().batchUpdate(providerSql, new BatchPreparedStatementSetter() {
                 @Override
                 public void setValues(PreparedStatement ps, int i) throws SQLException {
                     Provider provider = modifyAirport.getProviders().get(i);
                     ps.setString(1, provider.getName());
                     ps.setString(2, provider.getCurrency());
-                    ps.setString(3, provider.getValue());
+                    setParam(ps, 3, provider.getPrice());
                     ps.setLong(4, provider.getAirportId());
                 }
 
@@ -87,6 +87,5 @@ public class AirportDao extends JdbcDaoSupport {
             stmt.setInt(paramIndex, value);
         }
     }
-
 
 }

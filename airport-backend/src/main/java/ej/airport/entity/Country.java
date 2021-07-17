@@ -20,11 +20,10 @@ public class Country {
     @Column(name = "code")
     private String code;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "continent", nullable = false)
+    @Column(name = "continent")
     private String continent;
-
 
 }
