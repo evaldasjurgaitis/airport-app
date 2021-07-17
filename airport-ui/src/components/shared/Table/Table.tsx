@@ -9,11 +9,26 @@ interface Props {
     rows: any;
     pagination?: any;
     onChange?: (pagination: any) => void;
+    onRowClick: (id: number) => void;
 }
 
-const Table = ({ loading, columns, rows, pagination, onChange }: Props) => {
+const Table = ({ loading, columns, rows, pagination, onChange, onRowClick }: Props) => {
     return (
-        <TableBase columns={columns} dataSource={rows} loading={loading} pagination={pagination} onChange={onChange} />
+        <TableBase
+            rowKey={(record) => record.id}
+            columns={columns}
+            dataSource={rows}
+            loading={loading}
+            pagination={pagination}
+            onChange={onChange}
+            onRow={(record, rowIndex) => {
+                return {
+                    onClick: () => {
+                        onRowClick(record.id);
+                    },
+                };
+            }}
+        />
     );
 };
 

@@ -1,0 +1,17 @@
+.airport-info-modal {
+    &__content {
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+                margin: 3px;
+                font-size: 14px;
+            }
+        }
+        span {
+            margin: 5px;
+        }
+    }
+}

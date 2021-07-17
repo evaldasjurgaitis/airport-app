@@ -1,7 +1,6 @@
 package ej.airport.controller;
 
 import ej.airport.dto.AirportDetail;
-import ej.airport.entity.Airport;
 import ej.airport.service.AirportService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,7 +22,7 @@ public class AirportController {
     }
 
     @GetMapping("/{id}")
-    public Airport getAirport(@PathVariable Long id) {
+    public AirportDetail getAirport(@PathVariable Long id) {
         return airportService.getAirport(id);
     }
 

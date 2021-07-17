@@ -3,6 +3,7 @@ import axios from 'axios';
 import queryString from 'query-string';
 
 import Table from '../../../../shared/Table/Table';
+import AirportInfoModal from '../AirportInfoModal/AirportInfoModal';
 
 import { ProviderDetail } from '../../../typing';
 
@@ -21,6 +22,8 @@ const AirportTable = ({ selectedCountry, selectedRegion }: Props) => {
         pageSize: 10,
         total: 0,
     });
+    const [showAirportInfo, setShowAirportInfo] = useState(false);
+    const [selectedAirport, setSelectedAirport] = useState<number | null>(null);
 
     function getUrl(selectedCountry?: string, selectedRegion?: string, pagination?: any) {
         return queryString.stringifyUrl({
@@ -46,7 +49,13 @@ const AirportTable = ({ selectedCountry, selectedRegion }: Props) => {
                 });
                 setAirports(
                     response.data.content.map(
-                        (airport: { name: string; municipality: string; providerDetail: ProviderDetail }) => ({
+                        (airport: {
+                            id: number;
+                            name: string;
+                            municipality: string;
+                            providerDetail: ProviderDetail;
+                        }) => ({
+                            id: airport.id,
                             name: airport.name,
                             municipality: airport.municipality,
                             providerDetail: airport.providerDetail,
@@ -87,7 +96,8 @@ const AirportTable = ({ selectedCountry, selectedRegion }: Props) => {
             });
             setAirports(
                 response.data.content.map(
-                    (airport: { name: string; municipality: string; providerDetail: ProviderDetail }) => ({
+                    (airport: { id: number; name: string; municipality: string; providerDetail: ProviderDetail }) => ({
+                        id: airport.id,
                         name: airport.name,
                         municipality: airport.municipality,
                         providerDetail: airport.providerDetail,
@@ -99,12 +109,21 @@ const AirportTable = ({ selectedCountry, selectedRegion }: Props) => {
 
     return (
         <div className="airport-table">
+            <AirportInfoModal
+                id={selectedAirport}
+                visible={showAirportInfo}
+                onClose={() => setShowAirportInfo(false)}
+            />
             <Table
                 columns={columns}
                 rows={airports}
                 pagination={pagination}
                 loading={loading}
                 onChange={handleTableChange}
+                onRowClick={(id) => {
+                    setSelectedAirport(id);
+                    setShowAirportInfo(true);
+                }}
             />
         </div>
     );
