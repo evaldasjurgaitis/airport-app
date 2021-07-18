@@ -26,9 +26,9 @@ public class AirportController {
 
     @GetMapping
     public Page<AirportDetail> getAirportsByRequestParams(
-            @RequestParam String isoCountry,
-            @RequestParam(required = false) String isoRegion,
-            @RequestParam(defaultValue = "1") int page,
+            @RequestParam("isoCountry") String isoCountry,
+            @RequestParam(name = "isoRegion", required = false) String isoRegion,
+            @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);

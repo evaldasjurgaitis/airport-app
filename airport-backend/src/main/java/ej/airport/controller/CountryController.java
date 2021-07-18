@@ -17,8 +17,8 @@ public class CountryController {
     private final CountryService countryService;
 
     @GetMapping
-    public List<CountryDetail> getAll() {
-        return countryService.getAll();
+    public List<CountryDetail> getCountries() {
+        return countryService.findAllByOrderByName();
     }
 
 }

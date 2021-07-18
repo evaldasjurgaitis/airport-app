@@ -14,7 +14,7 @@ public class CountryService {
 
     private final CountryRepository countryRepository;
 
-    public List<CountryDetail> getAll() {
+    public List<CountryDetail> findAllByOrderByName() {
         return countryRepository.findAllByOrderByName().stream()
                 .map(country -> new CountryDetail(country.getCode(), country.getName()))
                 .collect(Collectors.toList());
