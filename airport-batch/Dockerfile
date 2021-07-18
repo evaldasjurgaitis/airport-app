@@ -4,7 +4,7 @@ VOLUME /tmp
 
 WORKDIR /airport-batch-service
 
-ADD /target/airport-batch.jar airport-batch.jar
+ADD /build/libs/airport-batch.jar airport-batch.jar
 
 EXPOSE 8082
 

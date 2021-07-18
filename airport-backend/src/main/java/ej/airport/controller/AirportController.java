@@ -5,7 +5,6 @@ import ej.airport.service.AirportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,11 +30,7 @@ public class AirportController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        Pageable pageable = PageRequest.of(page, size);
-        if (isoRegion == null || isoRegion.isEmpty()) {
-            return airportService.findByIsoCountryAndIsoRegion(isoCountry, pageable);
-        }
-        return airportService.findByIsoCountryAndIsoRegion(isoCountry, isoRegion, pageable);
+        return airportService.getAirports(isoCountry, isoRegion, PageRequest.of(page, size));
     }
 
 }

@@ -2,7 +2,7 @@ FROM openjdk:16
 
 WORKDIR /airport-backend-service
 
-ADD /target/airport-backend.jar airport-backend.jar
+ADD /build/libs/airport-backend.jar airport-backend.jar
 
 EXPOSE 8081
 
