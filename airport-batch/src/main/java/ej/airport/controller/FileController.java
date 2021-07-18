@@ -21,8 +21,8 @@ public class FileController {
     }
 
     @PostMapping
-    public File save(@RequestParam("file") MultipartFile multipartFile) throws IOException {
-        return new File(fileService.store(multipartFile).getAbsolutePath());
+    public File save(@RequestParam("file") MultipartFile file) throws IOException {
+        return new File(fileService.store(file));
     }
 
 }

@@ -1,0 +1,66 @@
+version: '3'
+services:
+  airport-db:
+    container_name: airport-db
+    image: 'mysql'
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - "3306:3306"
+
+  airport-backend:
+    container_name: airport-backend
+    restart: always
+    build:
+      context: ../airport-backend
+      dockerfile: Dockerfile
+    volumes:
+      - '/airport-batch-service'
+    ports:
+      - "8081:8081"
+    links:
+      - airport-db
+    depends_on:
+      - airport-db
+
+  airport-batch:
+    container_name: airport-batch
+    restart: always
+    build:
+      context: ../airport-batch
+      dockerfile: Dockerfile
+    volumes:
+      - '/airport-batch-service'
+      - '/tmp'
+    ports:
+      - "8082:8082"
+    links:
+      - airport-db
+      - price-service
+    depends_on:
+      - airport-db
+      - price-service
+
+  price-service:
+    container_name: price-service
+    restart: always
+    build:
+      context: ./priceService
+      dockerfile: Dockerfile
+    ports:
+      - "8085:8085"
+
+  airport-ui:
+    container_name: airport-ui
+    build:
+      context: ../airport-ui
+      dockerfile: Dockerfile
+    volumes:
+      - '/airport-ui'
+      - '/airport-ui/node_modules'
+    ports:
+      - "3000:3000"
+    environment:
+      - CHOKIDAR_USEPOLLING=true

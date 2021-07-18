@@ -35,7 +35,13 @@ spring:
       hikari:
         maximum-pool-size: 50
 logging:
+  level:
+    org.springframework.web: DEBUG
+    ej.airport: DEBUG
+    org.hibernate.SQL: DEBUG
   file:
-    name: airport-batch.log
+    name: /logs/airport-batch.log
 
 airport-price-service.url: http://localhost:8085
+file:
+  upload-dir: /tmp

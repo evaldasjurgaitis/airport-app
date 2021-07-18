@@ -1,31 +1,50 @@
 package ej.airport.service;
 
-import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.springframework.core.io.ClassPathResource;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Service
+@RequiredArgsConstructor
 public class FileService {
 
-    public File store(MultipartFile multipartFile) throws IOException {
-        if (multipartFile.isEmpty()) {
+    @Value("${file.upload-dir}")
+    private String uploadPath;
+
+    @PostConstruct
+    public void init() {
+        try {
+            Files.createDirectories(Paths.get(uploadPath));
+        } catch (IOException e) {
+            throw new RuntimeException("Could not create upload folder!");
+        }
+    }
+
+    public String store(MultipartFile file) throws IOException {
+        if (file.isEmpty()) {
             throw new IOException("No file selected");
         }
 
-        String path = new ClassPathResource("tmp/").getURL().getPath();
-        File file = new File(path + multipartFile.getOriginalFilename());
-        OutputStream outputStream = new FileOutputStream(file);
-        IOUtils.copy(multipartFile.getInputStream(), outputStream);
-        outputStream.flush();
-        outputStream.close();
+        Path root = Paths.get(uploadPath);
 
-        return file;
+        try {
+            if (!Files.exists(root)) {
+                init();
+            }
+            Files.deleteIfExists(root.resolve(file.getOriginalFilename()));
+            Files.copy(file.getInputStream(), root.resolve(file.getOriginalFilename()));
+        } catch (Exception e) {
+            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
+        }
+
+        return root.resolve(file.getOriginalFilename()).toAbsolutePath().toString();
     }
 
 }

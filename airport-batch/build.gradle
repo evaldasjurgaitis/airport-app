@@ -5,7 +5,6 @@ plugins {
 }
 
 group = 'ej'
-version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '16'
 
 configurations {
@@ -24,9 +23,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.0.3'
 
+	runtimeOnly 'mysql:mysql-connector-java'
 
 	compileOnly 'org.projectlombok:lombok'
-	compileOnly 'mysql:mysql-connector-java:8.0.22'
 
 	annotationProcessor 'org.projectlombok:lombok'
 
