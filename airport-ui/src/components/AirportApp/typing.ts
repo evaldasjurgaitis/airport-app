@@ -3,8 +3,18 @@ export enum MenuItemType {
     ADMIN_PANEL,
 }
 
+export type CountryDetail = {
+    code: string;
+    name: string;
+};
+
+export type RegionDetail = {
+    code: string;
+    name: string;
+};
+
 export type AirportDetail = {
-    id: number | null;
+    id: number;
     type: string | null;
     name: string | null;
     latitude: string | null;
@@ -19,7 +29,9 @@ export type AirportDetail = {
     iataCode: string | null;
     localCode: string | null;
     availableProviders: ProviderDetail[];
+    providerDetail: ProviderDetail;
 };
+
 export type ProviderDetail = {
     name: string;
     price: string;
@@ -35,3 +47,9 @@ export enum JobStatus {
     COMPLETED = 'COMPLETED',
     ABANDONED = 'ABANDONED',
 }
+
+export type Pagination = {
+    current: number;
+    pageSize: number;
+    total: number;
+};

@@ -1,6 +1,6 @@
 package ej.airport.service;
 
-import ej.airport.feign.AirportPriceFeignClient;
+import ej.airport.feign.AirportPriceClient;
 import ej.airport.model.Price;
 import ej.airport.model.Provider;
 import lombok.RequiredArgsConstructor;
@@ -13,10 +13,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PriceService {
 
-    private final AirportPriceFeignClient airportPriceFeignClient;
+    private final AirportPriceClient airportPriceClient;
 
     public Price getPrice(String provider, Long airportId) {
-        return airportPriceFeignClient.getPrice(provider, airportId);
+        return airportPriceClient.getPrice(provider, airportId);
     }
 
     public List<Provider> getProvidersWitPrice(List<String> providers, Long airportId) {

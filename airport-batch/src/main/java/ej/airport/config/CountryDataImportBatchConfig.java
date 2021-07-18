@@ -6,6 +6,7 @@ import ej.airport.dao.CountryDao;
 import ej.airport.step.Country.Reader;
 import ej.airport.step.Country.Writer;
 import ej.airport.step.Listener;
+import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -17,19 +18,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
 
 @Configuration
+@RequiredArgsConstructor
 public class CountryDataImportBatchConfig {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final TaskExecutor taskExecutor;
     private final CountryDao countryDao;
-
-    public CountryDataImportBatchConfig(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, CountryDao countryDao, @Qualifier("jobTaskExecutor") TaskExecutor taskExecutor) {
-        this.jobBuilderFactory = jobBuilderFactory;
-        this.stepBuilderFactory = stepBuilderFactory;
-        this.taskExecutor = taskExecutor;
-        this.countryDao = countryDao;
-    }
 
     @Bean(name = "COUNTRY_DATA_IMPORT")
     public Job job() {

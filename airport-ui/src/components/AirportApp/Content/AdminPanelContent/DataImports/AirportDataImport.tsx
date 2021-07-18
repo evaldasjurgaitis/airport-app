@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import { Button, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import { UploadRequestOption as RcCustomRequestOptions } from 'rc-upload/lib/interface';
 
 import Loader from '../../../../shared/Loader/Loader';
 import Row from '../../../../shared/Row/Row';
@@ -11,26 +12,26 @@ import Col from '../../../../shared/Col/Col';
 import { JobStatus } from '../../../typing';
 
 const AirportDataImport = () => {
-    const [showAirportDataLoader, setShowAirportDataLoader] = useState(false);
-    const [showAirportDataImportBtn, setShowAirportDataImportBtn] = useState(false);
-    const [airportDataFilePath, setAirportDataFilePath] = useState('');
-    const [showAirportDataImportStatusFailure, setShowAirportDataImportStatusFailure] = useState(false);
-    const [showAirportDataImportStatusSuccess, setShowAirportDataImportStatusSuccess] = useState(false);
+    const [showAirportDataLoader, setShowAirportDataLoader] = useState<boolean>(false);
+    const [showAirportDataImportBtn, setShowAirportDataImportBtn] = useState<boolean>(false);
+    const [airportDataFilePath, setAirportDataFilePath] = useState<string>('');
+    const [showAirportDataImportStatusFailure, setShowAirportDataImportStatusFailure] = useState<boolean>(false);
+    const [showAirportDataImportStatusSuccess, setShowAirportDataImportStatusSuccess] = useState<boolean>(false);
 
-    const fileForm = (options: any) => {
+    const fileForm = (options: RcCustomRequestOptions) => {
         const { file } = options;
         const data = new FormData();
         data.append('file', file);
         return data;
     };
 
-    const uploadAirportData = async (options: any) => {
+    const uploadAirportData = async (options: RcCustomRequestOptions) => {
         setShowAirportDataLoader(true);
         setShowAirportDataImportBtn(false);
         setShowAirportDataImportStatusFailure(false);
         setShowAirportDataImportStatusSuccess(false);
         await axios
-            .post(`http://localhost:8082/api/files`, fileForm(options))
+            .post('http://localhost:8082/api/files', fileForm(options))
             .then((response) => {
                 setShowAirportDataLoader(false);
                 setShowAirportDataImportBtn(true);

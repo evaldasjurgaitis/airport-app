@@ -11,17 +11,14 @@ interface Props extends ModalProps {
     width?: number;
     closable?: boolean;
     maskClosable?: boolean;
-    size?: string;
 }
 
-const Modal = ({ children, onClose, visible, width = 700, closable = true, maskClosable = true, size }: Props) => {
-    const modalWith = size === 'sm' ? 500 : width;
-
+const Modal = ({ children, onClose, visible, width = 500, closable = true, maskClosable = true }: Props) => {
     return (
         <ModalBase
             destroyOnClose
             visible={visible}
-            width={modalWith}
+            width={width}
             onCancel={onClose}
             closable={closable}
             maskClosable={maskClosable}

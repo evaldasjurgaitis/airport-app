@@ -6,6 +6,7 @@ import ej.airport.dao.RegionDao;
 import ej.airport.step.Listener;
 import ej.airport.step.Region.Reader;
 import ej.airport.step.Region.Writer;
+import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -17,19 +18,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
 
 @Configuration
+@RequiredArgsConstructor
 public class RegionDataImportConfig {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final RegionDao regionDao;
     private final TaskExecutor taskExecutor;
-
-    public RegionDataImportConfig(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, RegionDao regionDao, @Qualifier("jobTaskExecutor") TaskExecutor taskExecutor) {
-        this.jobBuilderFactory = jobBuilderFactory;
-        this.stepBuilderFactory = stepBuilderFactory;
-        this.regionDao = regionDao;
-        this.taskExecutor = taskExecutor;
-    }
 
     @Bean(name = "REGION_DATA_IMPORT")
     public Job job() {

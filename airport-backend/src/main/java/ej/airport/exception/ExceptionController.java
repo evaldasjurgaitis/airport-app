@@ -22,7 +22,7 @@ public class ExceptionController {
     }
 
     @ExceptionHandler(NoEntryFoundException.class)
-    public ResponseEntity<ExceptionResponse> invalidEntry(NoEntryFoundException ex, WebRequest request) {
+    public ResponseEntity<ExceptionResponse> handleNoEntryFoundException(NoEntryFoundException ex, WebRequest request) {
         return new ResponseEntity<>(new ExceptionResponse(ex.getMessage(), request.getDescription(false)), HttpStatus.NOT_FOUND);
     }
 

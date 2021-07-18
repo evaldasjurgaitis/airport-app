@@ -4,6 +4,7 @@ import ej.airport.dto.Job;
 import ej.airport.dto.JobExecute;
 import ej.airport.dto.JobType;
 import ej.airport.service.JobExecutorService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobInstance;
 import org.springframework.batch.core.explore.JobExplorer;
@@ -17,16 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/jobs")
+@RequiredArgsConstructor
 public class JobController {
 
     private final JobExecutorService jobExecutorService;
     private final JobExplorer jobExplorer;
-
-    public JobController(JobExecutorService jobExecutorService, JobExplorer jobExplorer) {
-        this.jobExecutorService = jobExecutorService;
-        this.jobExplorer = jobExplorer;
-    }
-
+    
     @GetMapping("/{jobType}")
     public Job getJob(@PathVariable("jobType") JobType jobType) {
         JobInstance jobInstance = jobExplorer.getLastJobInstance(String.valueOf(jobType));

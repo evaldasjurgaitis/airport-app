@@ -10,6 +10,7 @@ import ej.airport.dao.AirportDao;
 import ej.airport.step.Airport.Reader;
 import ej.airport.step.Airport.Writer;
 import ej.airport.step.Listener;
+import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -25,6 +26,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
 
 @Configuration
+@RequiredArgsConstructor
 public class AirportDataImportBatchConfig {
 
     private final JobBuilderFactory jobBuilderFactory;
@@ -32,14 +34,6 @@ public class AirportDataImportBatchConfig {
     private final TaskExecutor taskExecutor;
     private final AirportDao airportDao;
     private final PriceService priceService;
-
-    public AirportDataImportBatchConfig(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, TaskExecutor taskExecutor, AirportDao airportDao, PriceService priceService) {
-        this.jobBuilderFactory = jobBuilderFactory;
-        this.stepBuilderFactory = stepBuilderFactory;
-        this.taskExecutor = taskExecutor;
-        this.airportDao = airportDao;
-        this.priceService = priceService;
-    }
 
     @Bean(name = "AIRPORT_DATA_IMPORT")
     public Job job() throws Exception {

@@ -6,6 +6,10 @@ import Row from '../../../../shared/Row/Row';
 import Col from '../../../../shared/Col/Col';
 import Select, { Option } from '../../../../shared/Select/Select';
 
+import { CountryDetail, RegionDetail } from '../../../typing';
+
+import './AirportSearchForm.scss';
+
 interface Props {
     selectedCountry: string | undefined;
     setSelectedCountry: Dispatch<SetStateAction<string | undefined>>;
@@ -13,23 +17,23 @@ interface Props {
     setSelectedRegion: Dispatch<SetStateAction<string | undefined>>;
 }
 
+function getUrl(selectedCountry: string) {
+    return queryString.stringifyUrl({
+        url: 'http://localhost:8081/api/regions',
+        query: {
+            isoCountry: selectedCountry,
+        },
+    });
+}
+
 const AirportSearchForm = ({ selectedCountry, setSelectedCountry, selectedRegion, setSelectedRegion }: Props) => {
     const [countries, setCountries] = useState<Option[]>([]);
     const [regions, setRegions] = useState<Option[]>([]);
 
-    function getUrl(selectedCountry: string) {
-        return queryString.stringifyUrl({
-            url: 'http://localhost:8081/api/regions',
-            query: {
-                isoCountry: selectedCountry,
-            },
-        });
-    }
-
     useEffect(() => {
-        axios.get(`http://localhost:8081/api/countries`).then((response) => {
+        axios.get('http://localhost:8081/api/countries').then((response) => {
             setCountries(
-                response.data.map((country: { code: string; name: string }) => ({
+                response.data.map((country: CountryDetail) => ({
                     value: country.code,
                     label: country.name,
                 }))
@@ -37,12 +41,12 @@ const AirportSearchForm = ({ selectedCountry, setSelectedCountry, selectedRegion
         });
     }, [setCountries]);
 
-    const onCountryChange = (value: string) => {
+    const onCountryChange = (selectedCountry: string) => {
         setSelectedRegion(undefined);
-        setSelectedCountry(value);
-        axios.get(getUrl(value)).then((response) => {
+        setSelectedCountry(selectedCountry);
+        axios.get(getUrl(selectedCountry)).then((response) => {
             setRegions(
-                response.data.map((region: { code: string; name: string }) => ({
+                response.data.map((region: RegionDetail) => ({
                     value: region.code,
                     label: region.name,
                 }))
@@ -51,7 +55,8 @@ const AirportSearchForm = ({ selectedCountry, setSelectedCountry, selectedRegion
     };
 
     return (
-        <div>
+        <div className="airport-search-form">
+            <h1>Airport search panel</h1>
             <Row gutter={[16, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
                 <Col span={6} xs={24} sm={8} md={8} xl={4}>
                     <Select
@@ -68,8 +73,8 @@ const AirportSearchForm = ({ selectedCountry, setSelectedCountry, selectedRegion
                         disabled={!selectedCountry}
                         showSearch
                         options={regions}
-                        onChange={(value) => {
-                            setSelectedRegion(value);
+                        onChange={(selectedRegion) => {
+                            setSelectedRegion(selectedRegion);
                         }}
                         placeholder="Select region"
                     />

@@ -1,10 +1,11 @@
 package ej.airport.service;
 
-import ej.airport.entity.Region;
+import ej.airport.dto.RegionDetail;
 import ej.airport.repository.RegionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RegionService {
@@ -15,8 +16,10 @@ public class RegionService {
         this.regionRepository = regionRepository;
     }
 
-    public List<Region> getRegionsByCountry(String isoCountry) {
-        return regionRepository.findByIsoCountryOrderByName(isoCountry);
+    public List<RegionDetail> findByIsoCountryOrderByName(String isoCountry) {
+        return regionRepository.findByIsoCountryOrderByName(isoCountry).stream()
+                .map(region -> new RegionDetail(region.getCode(), region.getName()))
+                .collect(Collectors.toList());
     }
 
 }

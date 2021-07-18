@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 
 import Modal from '../../../../shared/Modal/Modal';
@@ -8,23 +8,24 @@ import { AirportDetail } from '../../../typing';
 import './AirportInfoModal.scss';
 
 interface Props {
-    id: number | null;
+    airportId: number | null;
     visible: boolean;
     onClose: () => void;
 }
 
-const AirportInfoModal = ({ id, visible, onClose }: Props) => {
+const AirportInfoModal = ({ airportId, visible, onClose }: Props) => {
     const [airport, setAirport] = useState<AirportDetail>();
 
+    const fetchAirportData = useCallback(async () => {
+        const result = await axios(`http://localhost:8081/api/airports/${airportId}`);
+        setAirport(result.data);
+    }, [airportId]);
+
     useEffect(() => {
-        if (id) {
-            const fetchAirportData = async () => {
-                const result = await axios(`http://localhost:8081/api/airports/${id}`);
-                setAirport(result.data);
-            };
+        if (airportId) {
             fetchAirportData();
         }
-    }, [id]);
+    }, [airportId, fetchAirportData]);
 
     if (!airport) {
         return null;
@@ -83,8 +84,8 @@ const AirportInfoModal = ({ id, visible, onClose }: Props) => {
                         <strong>
                             {airport.availableProviders.map((provider) => {
                                 return (
-                                    <span>
-                                        {provider.name} {provider.price} {provider.currency}
+                                    <span key={provider.name}>
+                                        {provider.name.toUpperCase()} {provider.price} {provider.currency}
                                     </span>
                                 );
                             })}

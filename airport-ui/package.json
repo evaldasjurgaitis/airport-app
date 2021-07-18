@@ -3,19 +3,19 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@ant-design/icons": "^4.6.2",
         "@testing-library/jest-dom": "^5.14.1",
         "@testing-library/react": "^12.0.0",
         "antd": "^4.16.6",
+        "axios": "^0.21.1",
         "classnames": "^2.3.1",
         "customize-cra": "^1.0.0",
-        "i18next": "^20.3.2",
         "query-string": "^7.0.1",
+        "rc-upload": "^4.3.1",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
-        "react-i18next": "^11.11.1",
         "react-responsive": "^8.2.0",
         "react-scripts": "^4.0.3",
-        "axios": "^0.21.1",
         "web-vitals": "^2.1.0"
     },
     "scripts": {

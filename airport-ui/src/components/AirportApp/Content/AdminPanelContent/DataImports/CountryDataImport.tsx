@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import { Button, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import { UploadRequestOption as RcCustomRequestOptions } from 'rc-upload/lib/interface';
 
 import Loader from '../../../../shared/Loader/Loader';
 import Row from '../../../../shared/Row/Row';
@@ -11,26 +12,26 @@ import Col from '../../../../shared/Col/Col';
 import { JobStatus } from '../../../typing';
 
 const CountryDataImport = () => {
-    const [showCountryDataLoader, setShowCountryDataLoader] = useState(false);
-    const [showCountryDataImportBtn, setShowCountryDataImportBtn] = useState(false);
-    const [countryDataFilePath, setCountryDataFilePath] = useState('');
-    const [showCountryDataImportStatusFailure, setShowCountryDataImportStatusFailure] = useState(false);
-    const [showCountryDataImportStatusSuccess, setShowCountryDataImportStatusSuccess] = useState(false);
+    const [showCountryDataLoader, setShowCountryDataLoader] = useState<boolean>(false);
+    const [showCountryDataImportBtn, setShowCountryDataImportBtn] = useState<boolean>(false);
+    const [countryDataFilePath, setCountryDataFilePath] = useState<string>('');
+    const [showCountryDataImportStatusFailure, setShowCountryDataImportStatusFailure] = useState<boolean>(false);
+    const [showCountryDataImportStatusSuccess, setShowCountryDataImportStatusSuccess] = useState<boolean>(false);
 
-    const fileForm = (options: any) => {
+    const fileForm = (options: RcCustomRequestOptions) => {
         const { file } = options;
         const data = new FormData();
         data.append('file', file);
         return data;
     };
 
-    const uploadCountryData = async (options: any) => {
+    const uploadCountryData = async (options: RcCustomRequestOptions) => {
         setShowCountryDataLoader(true);
         setShowCountryDataImportBtn(false);
         setShowCountryDataImportStatusFailure(false);
         setShowCountryDataImportStatusSuccess(false);
         await axios
-            .post(`http://localhost:8082/api/files`, fileForm(options))
+            .post('http://localhost:8082/api/files', fileForm(options))
             .then((response) => {
                 setShowCountryDataLoader(false);
                 setShowCountryDataImportBtn(true);

@@ -24,7 +24,7 @@ import java.util.List;
 public class Airport {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", unique = true)
     private Long id;
 
     @Column(name = "type")

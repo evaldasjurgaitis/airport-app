@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @FeignClient(value = "AirportPriceService", url = "${airport-price-service.url}")
-public interface AirportPriceFeignClient {
+public interface AirportPriceClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/item/price/{provider}/{id}", consumes = "application/json")
     Price getPrice(@PathVariable String provider, @PathVariable Long id);

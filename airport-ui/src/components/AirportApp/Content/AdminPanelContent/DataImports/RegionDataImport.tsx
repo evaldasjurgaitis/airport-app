@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import { Button, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import { UploadRequestOption as RcCustomRequestOptions } from 'rc-upload/lib/interface';
 
 import Loader from '../../../../shared/Loader/Loader';
 import Row from '../../../../shared/Row/Row';
@@ -11,26 +12,26 @@ import Col from '../../../../shared/Col/Col';
 import { JobStatus } from '../../../typing';
 
 const RegionDataImport = () => {
-    const [showRegionDataLoader, setShowRegionDataLoader] = useState(false);
-    const [showRegionDataImportBtn, setShowRegionDataImportBtn] = useState(false);
-    const [regionDataFilePath, setRegionDataFilePath] = useState('');
-    const [showRegionDataImportStatusFailure, setShowRegionDataImportStatusFailure] = useState(false);
-    const [showRegionDataImportStatusSuccess, setShowRegionDataImportStatusSuccess] = useState(false);
+    const [showRegionDataLoader, setShowRegionDataLoader] = useState<boolean>(false);
+    const [showRegionDataImportBtn, setShowRegionDataImportBtn] = useState<boolean>(false);
+    const [regionDataFilePath, setRegionDataFilePath] = useState<string>('');
+    const [showRegionDataImportStatusFailure, setShowRegionDataImportStatusFailure] = useState<boolean>(false);
+    const [showRegionDataImportStatusSuccess, setShowRegionDataImportStatusSuccess] = useState<boolean>(false);
 
-    const fileForm = (options: any) => {
+    const fileForm = (options: RcCustomRequestOptions) => {
         const { file } = options;
         const data = new FormData();
         data.append('file', file);
         return data;
     };
 
-    const uploadRegionData = async (options: any) => {
+    const uploadRegionData = async (options: RcCustomRequestOptions) => {
         setShowRegionDataLoader(true);
         setShowRegionDataImportBtn(false);
         setShowRegionDataImportStatusFailure(false);
         setShowRegionDataImportStatusSuccess(false);
         await axios
-            .post(`http://localhost:8082/api/files`, fileForm(options))
+            .post('http://localhost:8082/api/files', fileForm(options))
             .then((response) => {
                 setShowRegionDataLoader(false);
                 setShowRegionDataImportBtn(true);

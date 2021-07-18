@@ -1,7 +1,8 @@
 package ej.airport.controller;
 
-import ej.airport.entity.Region;
+import ej.airport.dto.RegionDetail;
 import ej.airport.service.RegionService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,17 +12,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/regions")
+@RequiredArgsConstructor
 public class RegionController {
 
     private final RegionService regionService;
-
-    public RegionController(RegionService regionService) {
-        this.regionService = regionService;
-    }
-
+    
     @GetMapping
-    public List<Region> getRegionsByCountry(@RequestParam("isoCountry") String isoCountry) {
-        return regionService.getRegionsByCountry(isoCountry);
+    public List<RegionDetail> getRegionsByIsoCountry(@RequestParam("isoCountry") String isoCountry) {
+        return regionService.findByIsoCountryOrderByName(isoCountry);
     }
 
 }

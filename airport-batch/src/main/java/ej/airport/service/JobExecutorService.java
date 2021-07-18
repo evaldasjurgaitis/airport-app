@@ -1,5 +1,6 @@
 package ej.airport.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParametersBuilder;
@@ -15,15 +16,11 @@ import java.util.UUID;
 
 @Log4j2
 @Service
+@RequiredArgsConstructor
 public class JobExecutorService {
 
     private final ApplicationContext applicationContext;
     private final JobLauncher jobLauncher;
-
-    public JobExecutorService(ApplicationContext applicationContext, JobLauncher jobLauncher) {
-        this.applicationContext = applicationContext;
-        this.jobLauncher = jobLauncher;
-    }
 
     public void executeJob(String jobType, String filePath) {
         try {

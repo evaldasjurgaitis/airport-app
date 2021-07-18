@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -45,6 +46,29 @@ public class AirportDetail {
                 airport.getMunicipality(),
                 new ProviderDetail(airport.getProvider())
         );
+    }
+
+    public static AirportDetail mapToAirportDetail(Airport airport) {
+        return AirportDetail.builder().id(airport.getId())
+                .id(airport.getId())
+                .type(airport.getType())
+                .name(airport.getName())
+                .latitude(airport.getLatitude())
+                .longitude(airport.getLongitude())
+                .altitude(airport.getAltitude())
+                .continent(airport.getContinent())
+                .isoCountry(airport.getIsoCountry())
+                .isoRegion(airport.getIsoRegion())
+                .municipality(airport.getMunicipality())
+                .sheduledService(airport.isSheduledService())
+                .gpsCode(airport.getGpsCode())
+                .iataCode(airport.getIataCode())
+                .localCode(airport.getLocalCode())
+                .availableProviders(airport.getProviders().stream()
+                        .map(ProviderDetail::new)
+                        .collect(Collectors.toList())
+                )
+                .build();
     }
 
 }

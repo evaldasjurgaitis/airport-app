@@ -2,6 +2,7 @@ package ej.airport.controller;
 
 import ej.airport.dto.File;
 import ej.airport.service.FileService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,13 +13,10 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/files")
+@RequiredArgsConstructor
 public class FileController {
 
     private final FileService fileService;
-
-    public FileController(FileService fileService) {
-        this.fileService = fileService;
-    }
 
     @PostMapping
     public File save(@RequestParam("file") MultipartFile file) throws IOException {
