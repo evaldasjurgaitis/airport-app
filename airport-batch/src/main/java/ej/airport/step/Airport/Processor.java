@@ -7,6 +7,7 @@ import ej.airport.service.PriceService;
 import org.springframework.batch.item.ItemProcessor;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class Processor implements ItemProcessor<Airport, ModifyAirport> {
 
@@ -16,7 +17,7 @@ public class Processor implements ItemProcessor<Airport, ModifyAirport> {
         this.priceService = priceService;
     }
 
-    public ModifyAirport process(Airport airport) {
+    public ModifyAirport process(Airport airport) throws ExecutionException, InterruptedException {
         List<Provider> providers = priceService.getProvidersWitPrice(airport.getAvailableProviders(), airport.getId());
         return mapToModifyAirport(airport, providers);
     }

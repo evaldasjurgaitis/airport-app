@@ -50,7 +50,7 @@ public class AirportDataImportBatchConfig {
     public Step airportDataImportStep() throws Exception {
         return stepBuilderFactory
                 .get("airportDataImportStep")
-                .chunk(50)
+                .chunk(10)
                 .reader(new Reader())
                 .faultTolerant()
                 .skipPolicy(new Skipper())

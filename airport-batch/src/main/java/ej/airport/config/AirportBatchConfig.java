@@ -18,6 +18,8 @@ public class AirportBatchConfig {
         // lowest core pool size increasing lowest data import time
         // highest core pool size increasing cpu usage and highest data import time
         executor.setCorePoolSize(200);
+        executor.setMaxPoolSize(200);
+        executor.setQueueCapacity(200);
         executor.setAllowCoreThreadTimeOut(true);
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
         executor.setThreadNamePrefix("MultiThreaded-");
