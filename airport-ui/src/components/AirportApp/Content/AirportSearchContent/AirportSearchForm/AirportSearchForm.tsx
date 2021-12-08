@@ -1,6 +1,7 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
 import queryString from 'query-string';
+
+import api from '../../../../../utils/api';
 
 import Row from '../../../../shared/Row/Row';
 import Col from '../../../../shared/Col/Col';
@@ -9,49 +10,49 @@ import Select, { Option } from '../../../../shared/Select/Select';
 import { CountryDetail, RegionDetail } from '../../../typing';
 
 import './AirportSearchForm.scss';
-
-interface Props {
-    selectedCountry: string | undefined;
-    setSelectedCountry: Dispatch<SetStateAction<string | undefined>>;
-    selectedRegion: string | undefined;
-    setSelectedRegion: Dispatch<SetStateAction<string | undefined>>;
-}
+import { AirportContext } from '../../../Contexts/AirportContext';
 
 function getUrl(selectedCountry: string) {
     return queryString.stringifyUrl({
-        url: 'http://localhost:8081/api/regions',
+        url: '/regions',
         query: {
             isoCountry: selectedCountry,
         },
     });
 }
 
-const AirportSearchForm = ({ selectedCountry, setSelectedCountry, selectedRegion, setSelectedRegion }: Props) => {
+const AirportSearchForm = () => {
+    const { selectedCountry, setSelectedCountry, selectedRegion, setSelectedRegion } = useContext(AirportContext);
+
     const [countries, setCountries] = useState<Option[]>([]);
     const [regions, setRegions] = useState<Option[]>([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8081/api/countries').then((response) => {
-            setCountries(
-                response.data.map((country: CountryDetail) => ({
-                    value: country.code,
-                    label: country.name,
-                }))
-            );
-        });
+        api()
+            .get('/countries')
+            .then((response) => {
+                setCountries(
+                    response.data.map((country: CountryDetail) => ({
+                        value: country.code,
+                        label: country.name,
+                    }))
+                );
+            });
     }, [setCountries]);
 
     const onCountryChange = (selectedCountry: string) => {
         setSelectedRegion(undefined);
         setSelectedCountry(selectedCountry);
-        axios.get(getUrl(selectedCountry)).then((response) => {
-            setRegions(
-                response.data.map((region: RegionDetail) => ({
-                    value: region.code,
-                    label: region.name,
-                }))
-            );
-        });
+        api()
+            .get(getUrl(selectedCountry))
+            .then((response) => {
+                setRegions(
+                    response.data.map((region: RegionDetail) => ({
+                        value: region.code,
+                        label: region.name,
+                    }))
+                );
+            });
     };
 
     return (

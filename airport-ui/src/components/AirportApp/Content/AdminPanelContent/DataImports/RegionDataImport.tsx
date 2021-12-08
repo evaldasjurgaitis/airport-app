@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
 import { Button, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { UploadRequestOption as RcCustomRequestOptions } from 'rc-upload/lib/interface';
+
+import api from '../../../../../utils/api';
 
 import Loader from '../../../../shared/Loader/Loader';
 import Row from '../../../../shared/Row/Row';
@@ -30,8 +31,8 @@ const RegionDataImport = () => {
         setShowRegionDataImportBtn(false);
         setShowRegionDataImportStatusFailure(false);
         setShowRegionDataImportStatusSuccess(false);
-        await axios
-            .post('http://localhost:8082/api/files', fileForm(options))
+        await api()
+            .post('/files', fileForm(options))
             .then((response) => {
                 setShowRegionDataLoader(false);
                 setShowRegionDataImportBtn(true);
@@ -44,8 +45,8 @@ const RegionDataImport = () => {
     };
 
     const pollingImportStatus = (jobId: number) => {
-        axios
-            .get(`http://localhost:8082/api/jobs/${jobId}/status`)
+        api()
+            .get(`/jobs/${jobId}/status`)
             .then((res) => {
                 if (
                     (res.status === 200 && res.data.status === JobStatus.STARTED) ||
@@ -78,14 +79,14 @@ const RegionDataImport = () => {
     const executeImportData = async () => {
         setShowRegionDataImportBtn(false);
         setShowRegionDataLoader(true);
-        axios
-            .post('http://localhost:8082/api/jobs/REGION_DATA_IMPORT/execute', {
+        api()
+            .post('/jobs/REGION_DATA_IMPORT/execute', {
                 filePath: regionDataFilePath,
             })
             .then(async () => {
                 setTimeout(() => {
-                    axios
-                        .get('http://localhost:8082/api/jobs/REGION_DATA_IMPORT')
+                    api()
+                        .get('/jobs/REGION_DATA_IMPORT')
                         .then(async (response) => {
                             pollingImportStatus(response.data.id);
                         })

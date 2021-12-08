@@ -1,15 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import AirportSearchContent from './AirportSearchContent/AirportSearchContent';
 import AdminPanelContent from './AdminPanelContent/AdminPanelContent';
 
 import { MenuItemType } from '../typing';
+import { AirportContext } from '../Contexts/AirportContext';
 
-interface Props {
-    selectedMenuItem: MenuItemType;
-}
+const Content = () => {
+    const { selectedMenuItem } = useContext(AirportContext);
 
-const Content = ({ selectedMenuItem }: Props) => {
     switch (selectedMenuItem) {
         case MenuItemType.AIRPORT_SEARCH:
             return <AirportSearchContent />;

@@ -1,15 +1,12 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { useContext } from 'react';
 
 import { MenuItemType } from '../typing';
 
 import './Menu.scss';
+import { AirportContext } from '../Contexts/AirportContext';
 
-interface Props {
-    selectedMenuItem: MenuItemType;
-    setSelectedMenuItem: Dispatch<SetStateAction<MenuItemType>>;
-}
-
-const Menu = ({ selectedMenuItem, setSelectedMenuItem }: Props) => {
+const Menu = () => {
+    const { selectedMenuItem, setSelectedMenuItem } = useContext(AirportContext);
     return (
         <div className="menu">
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}

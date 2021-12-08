@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import queryString from 'query-string';
+
+import api from '../../../../../utils/api';
 
 import Table from '../../../../shared/Table/Table';
 import AirportInfoModal from '../AirportInfoModal/AirportInfoModal';
@@ -8,12 +9,9 @@ import getAirportTableColumns from './getAirportTableColumns';
 
 import { AirportDetail, Pagination } from '../../../typing';
 
-import './AirportTable.scss';
+import { AirportContext } from '../../../Contexts/AirportContext';
 
-interface Props {
-    selectedCountry: string | undefined;
-    selectedRegion?: string | undefined;
-}
+import './AirportTable.scss';
 
 function getUrl(selectedCountry?: string, selectedRegion?: string, pagination?: Pagination) {
     return queryString.stringifyUrl({
@@ -27,7 +25,9 @@ function getUrl(selectedCountry?: string, selectedRegion?: string, pagination?: 
     });
 }
 
-const AirportTable = ({ selectedCountry, selectedRegion }: Props) => {
+const AirportTable = () => {
+    const { selectedCountry, selectedRegion } = useContext(AirportContext);
+
     const [loading, setLoading] = useState<boolean>(false);
     const [airports, setAirports] = useState<AirportDetail[]>([]);
     const [pagination, setPagination] = useState<Pagination>({
@@ -41,22 +41,24 @@ const AirportTable = ({ selectedCountry, selectedRegion }: Props) => {
     const fetchAirports = useCallback(
         (pagination?: Pagination) => {
             setLoading(true);
-            axios.get(getUrl(selectedCountry, selectedRegion, pagination)).then((response) => {
-                setLoading(false);
-                setPagination({
-                    current: response.data.number + 1,
-                    pageSize: response.data.size,
-                    total: response.data.totalElements,
+            api()
+                .get(getUrl(selectedCountry, selectedRegion, pagination))
+                .then((response) => {
+                    setLoading(false);
+                    setPagination({
+                        current: response.data.number + 1,
+                        pageSize: response.data.size,
+                        total: response.data.totalElements,
+                    });
+                    setAirports(
+                        response.data.content.map((airport: AirportDetail) => ({
+                            id: airport.id,
+                            name: airport.name,
+                            municipality: airport.municipality,
+                            providerDetail: airport.providerDetail,
+                        }))
+                    );
                 });
-                setAirports(
-                    response.data.content.map((airport: AirportDetail) => ({
-                        id: airport.id,
-                        name: airport.name,
-                        municipality: airport.municipality,
-                        providerDetail: airport.providerDetail,
-                    }))
-                );
-            });
         },
         [selectedCountry, selectedRegion]
     );

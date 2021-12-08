@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import axios from 'axios';
+
+import api from '../../../../../utils/api';
 
 import Modal from '../../../../shared/Modal/Modal';
 
@@ -17,7 +18,7 @@ const AirportInfoModal = ({ airportId, visible, onClose }: Props) => {
     const [airport, setAirport] = useState<AirportDetail>();
 
     const fetchAirportData = useCallback(async () => {
-        const result = await axios(`http://localhost:8081/api/airports/${airportId}`);
+        const result = await api()(`/airports/${airportId}`);
         setAirport(result.data);
     }, [airportId]);
 
