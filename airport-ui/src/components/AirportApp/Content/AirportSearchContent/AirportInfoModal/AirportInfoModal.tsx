@@ -18,7 +18,7 @@ const AirportInfoModal = ({ airportId, visible, onClose }: Props) => {
     const [airport, setAirport] = useState<AirportDetail>();
 
     const fetchAirportData = useCallback(async () => {
-        const result = await api()(`/airports/${airportId}`);
+        const result = await api().get(`/airports/${airportId}`);
         setAirport(result.data);
     }, [airportId]);
 

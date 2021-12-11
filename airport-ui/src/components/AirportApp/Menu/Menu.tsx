@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 
+import { AirportContext } from '../Contexts/AirportContext';
 import { MenuItemType } from '../typing';
 
 import './Menu.scss';
-import { AirportContext } from '../Contexts/AirportContext';
 
 const Menu = () => {
     const { selectedMenuItem, setSelectedMenuItem } = useContext(AirportContext);
